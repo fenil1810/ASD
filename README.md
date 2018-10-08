@@ -49,5 +49,27 @@ namespace VirtualStockTrading.MVC_Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            StockData stockData = db.StockDatas.Find(id);
+            if (stockData == null)
+            {
+                return HttpNotFound();
+            }
+            return View(stockData);
+        }
+        
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
